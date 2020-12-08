@@ -1,2 +1,2 @@
 # ReplicacioEpidemica
-<img src="Enunciat/Sessio5001.png">
+<img src="Enunciat/Sessio5.pdf">
