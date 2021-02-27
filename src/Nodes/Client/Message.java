@@ -23,6 +23,7 @@ public class Message {
 
     public static volatile boolean blockTransaction = false;
     public static volatile int synchronizationComplete = 0;
+    public static volatile boolean isOrigin = false;
 
     public static void sendInfo(Socket to, String from, String info, boolean isTransaction){
         DataOutputStream out = null;
@@ -63,7 +64,7 @@ public class Message {
 
         try {
             line = in.readUTF();
-            //System.out.println(line);
+            /*TODO: Comment this*/System.out.println(line);
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -110,7 +111,7 @@ public class Message {
                 blockTransaction = false;
             }   //else
         }   //if
-        else if(line.length() == 35 && line.substring(9,34).equals("synchronization completed"))
+        else if(line.length() == 35 && line.substring(9,34).equals("synchronization completed") && isOrigin)
             synchronizationComplete++;
     }
 

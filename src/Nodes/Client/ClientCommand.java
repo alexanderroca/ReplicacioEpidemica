@@ -17,8 +17,7 @@ import static Nodes.A2.lineNoUpdatedA2;
 import static Nodes.A2.lineUpdatedA2;
 import static Nodes.A3.lineNoUpdatedA3;
 import static Nodes.A3.lineUpdatedA3;
-import static Nodes.Client.Message.blockTransaction;
-import static Nodes.Client.Message.synchronizationComplete;
+import static Nodes.Client.Message.*;
 
 public class ClientCommand extends Thread {
 
@@ -74,7 +73,7 @@ public class ClientCommand extends Thread {
                         else
                             cl.eagerReplication();
 
-                        while (blockTransaction) ;
+                        while (blockTransaction);
 
                         if(nodeName.equals("A2") || nodeName.equals("A3")){
                             if((lineNoUpdatedA3 - 10) >= lineUpdatedA3 || (lineNoUpdatedA2 - 10) >= lineUpdatedA2){
@@ -115,6 +114,7 @@ public class ClientCommand extends Thread {
                             if (synchronizationComplete == 2)
                                 break;
                         }   //while
+                        isOrigin = false;
                     }   //if
                     System.out.println("Synchronization nodes from core layer completed!");
 
@@ -212,6 +212,7 @@ public class ClientCommand extends Thread {
         if(logModified && isNodeLayerCore()){
             cl.eagerReplication();
             source = true;
+            isOrigin = true;
             this.interrupt();
         }   //if
     }
